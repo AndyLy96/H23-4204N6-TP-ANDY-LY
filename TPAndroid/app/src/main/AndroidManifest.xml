@@ -12,6 +12,12 @@
         android:theme="@style/Theme.TPAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".CreationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AcceuilActivity"
+            android:exported="false" />
+        <activity
             android:name=".InscriptionActivity"
             android:exported="false" />
         <activity
