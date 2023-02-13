@@ -1,7 +1,9 @@
 package com.example.tpandroid;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,12 +22,20 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
             // each data item is just a string in this case
             public TextView tvNom;
             public TextView tvAge;
-            public TextView tvLettre;
+            public TextView tvPourcent;
+
+            public LinearLayout layout;
+
+
+            public TextView tvCreate;
             public MyViewHolder(LinearLayout v) {
                 super(v);
                 tvNom = v.findViewById(R.id.tvNom);
                 tvAge = v.findViewById(R.id.tvAge);
-                tvLettre = v.findViewById(R.id.tvLettre);
+                tvPourcent = v.findViewById(R.id.tvPourcent);
+                tvCreate = v.findViewById(R.id.tvCreate);
+                layout = v;
+
             }
         }
 
@@ -54,7 +64,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
             Item personneCourante = list.get(position);
             holder.tvNom.setText(personneCourante.nom);
             holder.tvAge.setText(""+personneCourante.date);
-            holder.tvLettre.setText(""+personneCourante.pourcentage);// TODO setText sur un integer crash
+            holder.tvPourcent.setText(""+personneCourante.pourcentage);// TODO setText sur un integer crash
+            holder.tvCreate.setText(""+personneCourante.tempsEcouler);
+
+
+            holder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(view.getContext(), CreationActivity.class);
+                    view.getContext().startActivity(i);
+                }
+            });
+
             Log.i("DEBOGAGE", "appel a onBindViewHolder " + position);
         }
 

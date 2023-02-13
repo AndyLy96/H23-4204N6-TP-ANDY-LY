@@ -9,29 +9,36 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tvNom"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1" />
+            android:layout_marginTop="10dp"
+            android:text="Nom tache: " />
 
         <TextView
+            android:id="@+id/tvNom"
             android:layout_width="0dp"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
+            android:text="nom"
             android:layout_height="wrap_content" />
 
         <TextView
 
             android:layout_width="wrap_content"
-            android:text="Nombre Long : "
+            android:text="Pourcentage: "
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/tvLettre"
-            android:layout_width="0dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:text="Lettre"
+            android:id="@+id/tvPourcent"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="pourcentage"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="%"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
@@ -44,20 +51,36 @@
         <TextView
 
             android:layout_width="wrap_content"
-            android:text="Date : "
+            android:text="Date limite: "
             android:layout_height="wrap_content" />
 
 
         <TextView
             android:id="@+id/tvAge"
             android:layout_width="wrap_content"
-            android:text="pipo"
+            android:text="age/date"
             android:layout_height="wrap_content" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Temps depuis la création : "
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvCreate"
+            android:layout_width="wrap_content"
+            android:text="create"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:text=" jours"
+            android:layout_height="wrap_content" />
+
 
 
 

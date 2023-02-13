@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Random;
 
@@ -31,22 +33,30 @@ public class AcceuilActivity extends AppCompatActivity {
 
     private void remplacer(){
         adapter.list.clear();
-        for (int i = 1 ; i <= 1000 ; i++) {
+        for (int i = 1 ; i <= 200 ; i++) {
             Item p = new Item();
+            LocalDateTime date = LocalDateTime.now();
+            DateTimeFormatter datetwo = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String dateform = date.format(datetwo);
             p.nom = "Objet#" + i;
-            p.date  =  new Date();
+            p.date  =  dateform;
             p.pourcentage = new Random().nextInt(20);
+            p.tempsEcouler = new Random().nextInt(20);
             adapter.list.add(0,p);
         }
         adapter.notifyDataSetChanged();
     }
 
     private void remplirRecycler() {
-        for (int i = 0 ; i < 10000 ; i++) {
+        for (int i = 0 ; i < 1000 ; i++) {
             Item p = new Item();
+            LocalDateTime date = LocalDateTime.now();
+            DateTimeFormatter datetwo = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String dateform = date.format(datetwo);
             p.nom = "Bob " + i;
-            p.date  =  new Date();
+            p.date  = dateform;
             p.pourcentage = new Random().nextInt(20);
+            p.tempsEcouler = new Random().nextInt(20);
             adapter.list.add(p);
         }
         adapter.notifyDataSetChanged();

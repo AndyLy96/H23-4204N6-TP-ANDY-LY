@@ -23,5 +23,10 @@ public class ConnexionActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+        binding. versAcceuil1.setOnClickListener(view -> {
+            Intent i = new Intent(ConnexionActivity.this, AcceuilActivity.class);
+            startActivity(i);
+        });
+
     }
 }
