@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:fontFamily="monospace"
         android:gravity="center"
-        android:text="Inscription"
+        android:text="@string/inscription"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textSize="30dp" />
@@ -22,7 +22,7 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="Utilisateur"
+        android:hint="@string/user"
         android:layout_gravity="center"/>
 
     <TextView
@@ -33,21 +33,21 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="Mot de Passe "
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:layout_gravity="center"/>
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="Confirmer Mot de Passe " />
+        android:hint="@string/confirm_password" />
 
 
     <Button
         android:id="@+id/versAcceuil2"
         android:layout_width="300dp"
         android:layout_height="70dp"
-        android:text="Acceuil"
+        android:text="@string/homepage"
         android:layout_gravity="center"/>
 
 

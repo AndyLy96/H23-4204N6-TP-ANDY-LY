@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,14 +60,16 @@ public class ConsultationActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.accueil:
-                        finish();
-                        System.exit(0);
+                        Intent i = new Intent(ConsultationActivity.this, AcceuilActivity.class);
+                        startActivity(i);
                         return true;
-                    case R.id.profil:
-                        Toast.makeText(getApplicationContext(),"Andy", Toast.LENGTH_SHORT).show();
+                    case R.id.tache:
+                        Intent u = new Intent(ConsultationActivity.this, CreationActivity.class);
+                        startActivity(u);
                         return true;
                     case R.id.deconnexion:
-                        Log.i("Deconnexion", "Deconneixon");
+                        Intent d = new Intent(ConsultationActivity.this, ConnexionActivity.class);
+                        startActivity(d);
                         return true;
                 }
                 return false;

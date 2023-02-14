@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="300dp"
         android:layout_height="150dp"
-        android:text="Connexion"
+        android:text="@string/connection"
         android:textAllCaps="true"
         android:textSize="30dp"
         android:fontFamily="monospace"
@@ -22,7 +22,7 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="Utilisateur ici"
+        android:hint="@string/username_here"
         android:layout_gravity="center"/>
 
     <TextView
@@ -35,7 +35,7 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="Mot de Passe ici"
+        android:hint="@string/password_here"
         android:inputType="textPassword"
         android:layout_gravity="center"/>
 
@@ -43,7 +43,7 @@
         android:id="@+id/versAcceuil1"
         android:layout_width="300dp"
         android:layout_height="70dp"
-        android:text="Connexion"
+        android:text="@string/connection"
         android:layout_gravity="center"/>
 
     <Button

@@ -1,6 +1,28 @@
 <resources>
-    <string name="app_name">TiroirSimple</string>
-    <string name="hello">HELLO HOW ARE YOU</string>
-    <string name="drawer_open">Close me</string>
-    <string name="drawer_close">Open me</string>
+    <string name="app_name">TpAndroid En</string>
+    <string name="drawer_open">Close</string>
+    <string name="drawer_close">Open</string>
+    <string name="task_name">Name of the task : TaskName</string>
+    <string name="due_date">Due Date : february 19th 2023</string>
+    <string name="percentage_completion">Percentage of completion :</string>
+    <string name="elapsed_time">Elapsed time : 19 days</string>
+    <string name="creation_text">Creation</string>
+    <string name="name_ofTask">Name of the task</string>
+    <string name="add">Add</string>
+    <string name="inscription">Inscription</string>
+    <string name="user">User</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="homepage">Homepage</string>
+    <string name="connection">Connection</string>
+    <string name="username_here">Username here</string>
+    <string name="password_here">Password here</string>
+    <string name="task_name_item">Task name:</string>
+    <string name="percentage_item">Percentage:</string>
+    <string name="deadline_item">Deadline:</string>
+    <string name="time_creation_item">Time since creation :</string>
+    <string name="menu_title_tache">Create a task</string>
+    <string name="homepage_drawer">Homepage</string>
+    <string name="add_task_drawer">Add task</string>
+    <string name="logout">Log Out</string>
 </resources>

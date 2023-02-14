@@ -6,15 +6,15 @@
         <item
             android:id="@+id/accueil"
             android:icon="@drawable/ic_launcher_background"
-            android:title="Accueil" />
+            android:title="@string/homepage_drawer" />
         <item
-            android:id="@+id/profil"
+            android:id="@+id/tache"
             android:icon="@drawable/ic_launcher_background"
-            android:title="Ajout de tâche" />
+            android:title="@string/add_task_drawer" />
         <item
             android:id="@+id/deconnexion"
             android:icon="@drawable/ic_launcher_background"
-            android:title="Déconnexion"/>
+            android:title="@string/logout"/>
     </group>
 
 

@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Nom de la tâche : NomTache"
+            android:text="@string/task_name"
             android:textSize="20dp"
             android:layout_gravity="center"/>
 
@@ -45,7 +45,7 @@
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Date d'échéance : 19 février 2023 "
+            android:text="@string/due_date"
             android:textSize="20dp"
             android:layout_gravity="center"/>
 
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Pourcentage d'avancement : "
+                android:text="@string/percentage_completion"
                 android:textSize="20dp" />
 
             <EditText
@@ -83,7 +83,7 @@
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Temps écoulé : 19 jours"
+            android:text="@string/elapsed_time"
             android:textSize="20dp"
             android:layout_gravity="center"/>
 
