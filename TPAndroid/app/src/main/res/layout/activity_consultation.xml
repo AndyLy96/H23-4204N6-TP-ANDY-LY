@@ -1,88 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:openDrawer="start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ConnexionActivity">
+    android:id="@+id/drawer_layout" >
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ConnexionActivity">
 
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:text="Consultation"
-        android:textAllCaps="true"
-        android:textSize="30dp"
-        android:fontFamily="monospace"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:layout_gravity="center" />
-
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Nom de la tâche : NomTache"
-        android:textSize="20dp"
-        android:layout_gravity="center"/>
-
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
-
-
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Date d'échéance : 19 février 2023 "
-        android:textSize="20dp"
-        android:layout_gravity="center"/>
-
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Pourcentage d'avancement : "
-            android:textSize="20dp" />
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:text="Consultation"
+            android:textAllCaps="true"
+            android:textSize="30dp"
+            android:fontFamily="monospace"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_gravity="center" />
 
-        <EditText
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Nom de la tâche : NomTache"
+            android:textSize="20dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Date d'échéance : 19 février 2023 "
+            android:textSize="20dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="100%"/>
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Pourcentage d'avancement : "
+                android:textSize="20dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="100%"/>
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Temps écoulé : 19 jours"
+            android:textSize="20dp"
+            android:layout_gravity="center"/>
+
+
+
+
+
+
 
 
     </LinearLayout>
 
-
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Temps écoulé : 19 jours"
-        android:textSize="20dp"
-        android:layout_gravity="center"/>
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/nav_view"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer"/>
 
 
-
-
-
-
-
-
-</LinearLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

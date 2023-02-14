@@ -1,33 +1,53 @@
 package com.example.tpandroid;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
+import com.example.tpandroid.databinding.ConnexionMainBinding;
+import com.google.android.material.navigation.NavigationView;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Random;
+import com.example.tpandroid.databinding.ActivityAcceuilBinding;
+
 
 public class AcceuilActivity extends AppCompatActivity {
 
+    ActivityAcceuilBinding binding;
+
     ItemAdapter adapter;
+    ActionBarDrawerToggle barToggle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_acceuil);
+        binding = ActivityAcceuilBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // initialisation du recycler
         this.initRecycler();
         this.remplirRecycler();
 
         this.remplacer();
+
+
 
     }
 
@@ -90,7 +110,12 @@ public class AcceuilActivity extends AppCompatActivity {
             startActivity(i);
             return true;
         }
+
+
         return super.onOptionsItemSelected(item);
     }
+
+
+
 
 }
