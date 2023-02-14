@@ -71,7 +71,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
             holder.layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent i = new Intent(view.getContext(), CreationActivity.class);
+                    Intent i = new Intent(view.getContext(), ConsultationActivity.class);
                     view.getContext().startActivity(i);
                 }
             });

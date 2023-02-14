@@ -30,24 +30,26 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
 
-    <EditText
+    <DatePicker
+        android:id="@+id/datePicker"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:hint="Mot de Passe "
-        android:inputType="textPassword"
-        android:layout_gravity="center"/>
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="222dp"
         android:layout_gravity="center"
-        android:hint="Confirmer Mot de Passe " />
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner" />
+
+    <TextView
+        android:layout_width="68dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_gravity="center"/>
 
 
     <Button
         android:id="@+id/versAcceuil3"
         android:layout_width="300dp"
         android:layout_height="70dp"
-        android:text="Ajout"
+        android:text="Ajouter"
         android:layout_gravity="center"/>
 
 
