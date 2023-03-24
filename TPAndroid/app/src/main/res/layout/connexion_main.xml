@@ -23,7 +23,8 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="@string/username_here"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:id="@+id/signInUser"/>
 
     <TextView
         android:layout_width="300dp"
@@ -34,6 +35,7 @@
 
     <EditText
         android:layout_width="300dp"
+        android:id="@+id/signInPassW"
         android:layout_height="wrap_content"
         android:hint="@string/password_here"
         android:inputType="textPassword"

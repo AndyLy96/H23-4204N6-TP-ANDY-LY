@@ -1,6 +1,7 @@
 package com.example.tpandroid;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -9,6 +10,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
+
+import com.example.tpandroid.http.RetrofitCookie;
+import com.example.tpandroid.http.RetrofitUtil;
+import com.example.tpandroid.http.ServiceCookie;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -23,4 +33,5 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.example.tpandroid", appContext.getPackageName());
     }
+
 }

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tpandroid.databinding.ConnexionMainBinding;
@@ -41,13 +42,19 @@ public class AcceuilActivity extends AppCompatActivity {
         binding = ActivityAcceuilBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Intent intent = getIntent();
+
         // initialisation du recycler
         this.initRecycler();
         this.remplirRecycler();
 
         this.remplacer();
 
+
         NavigationView nv = binding.navView;
+        View header = nv.getHeaderView(0);
+        TextView txt = (TextView) header.findViewById(R.id.navHeader);
+        txt.setText(intent.getStringExtra("intent"));
         DrawerLayout d1 = binding.drawerLayout;
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
