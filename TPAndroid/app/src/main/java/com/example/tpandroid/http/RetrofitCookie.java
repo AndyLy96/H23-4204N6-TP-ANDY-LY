@@ -1,5 +1,7 @@
 package com.example.tpandroid.http;
 
+import org.kickmyb.CustomGson;
+
 import okhttp3.CookieJar;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -14,9 +16,9 @@ public class RetrofitCookie {
         if (instance == null) { //  ca sera le cas au tout premier appel
             Retrofit retrofit = new Retrofit.Builder()
                     .addConverterFactory(ScalarsConverterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(CustomGson.getIt()))
                     .client(client())
-                    .baseUrl("https://kickmyb-server.azurewebsites.net/")
+                    .baseUrl("https://4204n6kickmyb-pasgratuit.azurewebsites.net")
                     .build();
 
             instance = retrofit.create(ServiceCookie.class);
