@@ -21,7 +21,7 @@
     <string name="task_name_item">Nom tache:</string>
     <string name="percentage_item">Pourcentage:</string>
     <string name="deadline_item">Date limite:</string>
-    <string name="time_creation_item">Temps depuis la création :</string>
+    <string name="time_creation_item">Depuis création :</string>
     <string name="menu_title_tache">Création d\'une tâche</string>
     <string name="homepage_drawer">Accueil</string>
     <string name="add_task_drawer">Ajout de tâche</string>

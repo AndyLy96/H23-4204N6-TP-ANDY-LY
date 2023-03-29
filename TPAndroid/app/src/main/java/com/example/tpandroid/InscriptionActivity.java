@@ -11,8 +11,10 @@ import android.widget.Toast;
 
 import com.example.tpandroid.databinding.ActivityCreationBinding;
 import com.example.tpandroid.databinding.ActivityInscriptionBinding;
+import com.example.tpandroid.http.RetrofitCookie;
 import com.example.tpandroid.http.RetrofitUtil;
 import com.example.tpandroid.http.Service;
+import com.example.tpandroid.http.ServiceCookie;
 
 import org.kickmyb.transfer.SigninRequest;
 import org.kickmyb.transfer.SigninResponse;
@@ -31,7 +33,8 @@ public class InscriptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityInscriptionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Service service = RetrofitUtil.get();
+//        Service service = RetrofitUtil.get();
+        ServiceCookie service = RetrofitCookie.get();
 
         EditText user = findViewById(R.id.signupUser);
         EditText passw = findViewById(R.id.signupPassw);
@@ -50,13 +53,22 @@ public class InscriptionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 SigninRequest s = new SigninRequest();
                 s.username = user.getText().toString();
-                s.password = passw.getText().toString();
+                if (passw.getText().toString().equals(confirmP.getText().toString()))
+                {
+                    s.password = passw.getText().toString();
+                }
+                else
+                {
+                    Toast.makeText(InscriptionActivity.this, "Password not the same" , Toast.LENGTH_LONG).show();
+                }
+
                 service.signup(s).enqueue(new Callback<SigninResponse>() {
                     @Override
                     public void onResponse(Call<SigninResponse> call, Response<SigninResponse> response) {
                         if(response.isSuccessful()){
                             Intent i = new Intent(InscriptionActivity.this, AcceuilActivity.class);
-                            i.putExtra("intent", response.body().username);
+//                            i.putExtra("intent", response.body().username);
+                            UtilStatic.username = response.body().username;
                             startActivity(i);
                         }
                     }

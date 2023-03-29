@@ -20,7 +20,7 @@
     <string name="task_name_item">Task name:</string>
     <string name="percentage_item">Percentage:</string>
     <string name="deadline_item">Deadline:</string>
-    <string name="time_creation_item">Time since creation :</string>
+    <string name="time_creation_item">Since creation :</string>
     <string name="menu_title_tache">Create a task</string>
     <string name="homepage_drawer">Homepage</string>
     <string name="add_task_drawer">Add task</string>

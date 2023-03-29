@@ -12,10 +12,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tpandroid.databinding.ActivityConsultationBinding;
+import com.example.tpandroid.http.RetrofitCookie;
+import com.example.tpandroid.http.RetrofitUtil;
+import com.example.tpandroid.http.Service;
+import com.example.tpandroid.http.ServiceCookie;
 import com.google.android.material.navigation.NavigationView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ConsultationActivity extends AppCompatActivity {
 
@@ -29,8 +38,13 @@ public class ConsultationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityConsultationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        ServiceCookie service = RetrofitCookie.get();
 
+//        Service service = RetrofitUtil.get();
         NavigationView nv = binding.navView;
+        View header = nv.getHeaderView(0);
+        TextView txt = (TextView) header.findViewById(R.id.navHeader);
+        txt.setText(UtilStatic.username);
         DrawerLayout d1 = binding.drawerLayout;
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -68,8 +82,23 @@ public class ConsultationActivity extends AppCompatActivity {
                         startActivity(u);
                         return true;
                     case R.id.deconnexion:
-                        Intent d = new Intent(ConsultationActivity.this, ConnexionActivity.class);
-                        startActivity(d);
+                        service.signout().enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                if(response.isSuccessful()){
+                                    UtilStatic.username = "";
+                                    Intent d = new Intent(ConsultationActivity.this, ConnexionActivity.class);
+                                    startActivity(d);
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                Log.i("RETROFIT", t.getMessage());
+                                Toast.makeText(ConsultationActivity.this, "Déconnexion échoué" , Toast.LENGTH_LONG).show();
+                            }
+                        });
+//                        Intent d = new Intent(ConsultationActivity.this, ConnexionActivity.class);
+//                        startActivity(d);
                         return true;
                 }
                 return false;

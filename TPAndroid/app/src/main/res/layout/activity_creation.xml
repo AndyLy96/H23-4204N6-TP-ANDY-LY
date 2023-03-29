@@ -29,6 +29,7 @@
             android:textSize="30dp" />
 
         <EditText
+            android:id="@+id/taskName"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:hint="@string/name_ofTask"
