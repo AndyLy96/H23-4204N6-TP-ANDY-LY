@@ -18,10 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tpandroid.databinding.ActivityCreationBinding;
-import com.example.tpandroid.databinding.ConnexionMainBinding;
 import com.example.tpandroid.http.RetrofitCookie;
-import com.example.tpandroid.http.RetrofitUtil;
-import com.example.tpandroid.http.Service;
 import com.example.tpandroid.http.ServiceCookie;
 import com.google.android.material.navigation.NavigationView;
 

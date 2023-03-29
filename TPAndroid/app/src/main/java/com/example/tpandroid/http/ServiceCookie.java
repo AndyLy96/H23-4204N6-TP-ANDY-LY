@@ -35,5 +35,5 @@ public interface ServiceCookie {
     Call<List<HomeItemResponse>> acceuil();
 
     @GET("/api/detail/{id}")
-    Call<TaskDetailResponse> (@Path())
+    Call<TaskDetailResponse> taskDetail(@Path("id") Long numberId);
 }

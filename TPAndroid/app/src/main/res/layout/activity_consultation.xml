@@ -28,26 +28,57 @@
             android:gravity="center"
             android:layout_gravity="center" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="155dp"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_gravity="center"
+                android:text="@string/task_name"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:id="@+id/taskNameDetail"
+                android:layout_gravity="center"
+                android:text=""/>
+        </LinearLayout>
+
+
+
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="@string/task_name"
-            android:textSize="20dp"
             android:layout_gravity="center"/>
 
-        <TextView
-            android:layout_width="300dp"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/due_date"
+                android:textSize="20dp"
+                android:layout_gravity="center"/>
 
-
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:text="@string/due_date"
-            android:textSize="20dp"
-            android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:id="@+id/taskdueDateDetail"
+                android:layout_gravity="center"
+                android:text=""/>
+        </LinearLayout>
 
         <TextView
             android:layout_width="300dp"
@@ -57,7 +88,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,7 +100,8 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="100%"/>
+                android:hint="100%"
+                android:id="@+id/taskPourcentageDetail"/>
 
 
         </LinearLayout>
@@ -80,12 +112,28 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"/>
 
-        <TextView
-            android:layout_width="300dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/elapsed_time"
-            android:textSize="20dp"
-            android:layout_gravity="center"/>
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/elapsed_time"
+                android:textSize="20dp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="100%"
+                android:id="@+id/taskElapsedTimeDetail"/>
+
+
+        </LinearLayout>
+
+
 
 
 

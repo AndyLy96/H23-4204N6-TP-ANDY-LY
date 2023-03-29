@@ -12,15 +12,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tpandroid.databinding.ActivityConsultationBinding;
 import com.example.tpandroid.http.RetrofitCookie;
-import com.example.tpandroid.http.RetrofitUtil;
-import com.example.tpandroid.http.Service;
 import com.example.tpandroid.http.ServiceCookie;
 import com.google.android.material.navigation.NavigationView;
+
+import org.kickmyb.transfer.TaskDetailResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,14 +41,44 @@ public class ConsultationActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         ServiceCookie service = RetrofitCookie.get();
 
+
+
+
+        Long id = getIntent().getLongExtra("id", -1L);
+
+
+
+
+
 //        Service service = RetrofitUtil.get();
         NavigationView nv = binding.navView;
         View header = nv.getHeaderView(0);
         TextView txt = (TextView) header.findViewById(R.id.navHeader);
         txt.setText(UtilStatic.username);
         DrawerLayout d1 = binding.drawerLayout;
+        TextView taskname = findViewById(R.id.taskNameDetail);
+        TextView taskDateDue = findViewById(R.id.taskdueDateDetail);
+        TextView taskTempsÉcoulé = findViewById(R.id.taskElapsedTimeDetail);
+        EditText edPercentage = findViewById(R.id.taskPourcentageDetail);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        service.taskDetail(id).enqueue(new Callback<TaskDetailResponse>() {
+
+            @Override
+            public void onResponse(Call<TaskDetailResponse> call, Response<TaskDetailResponse> response) {
+                // gerer les erreurs
+                taskname.setText(response.body().name.toString());
+                taskDateDue.setText(response.body().deadline.toString());
+                taskTempsÉcoulé
+            }
+
+            @Override
+            public void onFailure(Call<TaskDetailResponse> call, Throwable t) {
+                Log.i("RETROFIT", t.getMessage());
+                Toast.makeText(ConsultationActivity.this, "Création de la tache échoué" , Toast.LENGTH_LONG).show();
+            }
+        });
 
         barToggle = new ActionBarDrawerToggle(this,d1, R.string.drawer_open, R.string.drawer_close){
             @Override

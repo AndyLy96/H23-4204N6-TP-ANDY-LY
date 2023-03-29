@@ -9,11 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.tpandroid.databinding.ActivityCreationBinding;
 import com.example.tpandroid.databinding.ActivityInscriptionBinding;
 import com.example.tpandroid.http.RetrofitCookie;
-import com.example.tpandroid.http.RetrofitUtil;
-import com.example.tpandroid.http.Service;
 import com.example.tpandroid.http.ServiceCookie;
 
 import org.kickmyb.transfer.SigninRequest;

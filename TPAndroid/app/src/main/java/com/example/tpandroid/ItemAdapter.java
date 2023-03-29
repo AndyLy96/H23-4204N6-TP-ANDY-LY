@@ -10,10 +10,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.kickmyb.transfer.HomeItemResponse;
+
 import java.util.ArrayList;
 import java.util.List;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> {
-        public List<Item> list;
+        public List<HomeItemResponse> list;
 
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
@@ -61,17 +63,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
         public void onBindViewHolder(MyViewHolder holder, int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
-            Item personneCourante = list.get(position);
-            holder.tvNom.setText(personneCourante.nom);
-            holder.tvAge.setText(""+personneCourante.date);
-            holder.tvPourcent.setText(""+personneCourante.pourcentage);// TODO setText sur un integer crash
-            holder.tvCreate.setText(""+personneCourante.tempsEcouler);
+            HomeItemResponse personneCourante = list.get(position);
+            holder.tvNom.setText(personneCourante.name);
+            holder.tvAge.setText(""+personneCourante.deadline);
+            holder.tvPourcent.setText(""+personneCourante.percentageDone);// TODO setText sur un integer crash
+            holder.tvCreate.setText(""+personneCourante.percentageTimeSpent);
 
 
             holder.layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent i = new Intent(view.getContext(), ConsultationActivity.class);
+                    i.putExtra("id", personneCourante.id);
                     view.getContext().startActivity(i);
                 }
             });

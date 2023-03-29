@@ -3,10 +3,10 @@
     <string name="app_name">TpAndroid Fr</string>
     <string name="drawer_open">Fermer</string>
     <string name="drawer_close">Ouvrir</string>
-    <string name="task_name">Nom de la tâche : NomTache</string>
-    <string name="due_date">Date d\'échéance : 19 février 2023</string>
+    <string name="task_name">Nom de la tâche :</string>
+    <string name="due_date">Date d\'échéance :</string>
     <string name="percentage_completion">Pourcentage d\'avancement :</string>
-    <string name="elapsed_time">Temps écoulé : 19 jours</string>
+    <string name="elapsed_time">Temps écoulé :</string>
     <string name="creation_text">Création</string>
     <string name="name_ofTask">Nom de la tâche</string>
     <string name="add">Ajouter</string>

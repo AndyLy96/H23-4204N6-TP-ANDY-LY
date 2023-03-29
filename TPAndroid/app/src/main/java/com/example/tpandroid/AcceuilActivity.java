@@ -18,22 +18,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.tpandroid.databinding.ConnexionMainBinding;
 import com.example.tpandroid.http.RetrofitCookie;
-import com.example.tpandroid.http.RetrofitUtil;
-import com.example.tpandroid.http.Service;
 import com.example.tpandroid.http.ServiceCookie;
 import com.google.android.material.navigation.NavigationView;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
+
 import com.example.tpandroid.databinding.ActivityAcceuilBinding;
 
 import org.kickmyb.transfer.HomeItemResponse;
-import org.kickmyb.transfer.SigninResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -59,7 +52,6 @@ public class AcceuilActivity extends AppCompatActivity {
 
         // initialisation du recycler
         this.initRecycler();
-        this.remplirRecycler();
 
 
 
@@ -69,6 +61,14 @@ public class AcceuilActivity extends AppCompatActivity {
         txt.setText(UtilStatic.username);
         DrawerLayout d1 = binding.drawerLayout;
 
+        loadingInitialListe();
+
+        initDrawer(service, nv, d1);
+
+
+    }
+
+    private void loadingInitialListe() {
         RetrofitCookie.get().acceuil().enqueue(new Callback<List<HomeItemResponse>>() {
             @Override
             public void onResponse(Call<List<HomeItemResponse>> call, Response<List<HomeItemResponse>> response) {
@@ -83,10 +83,12 @@ public class AcceuilActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void initDrawer(ServiceCookie service, NavigationView nv, DrawerLayout d1) {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        barToggle = new ActionBarDrawerToggle(this,d1, R.string.drawer_open, R.string.drawer_close){
+        barToggle = new ActionBarDrawerToggle(this, d1, R.string.drawer_open, R.string.drawer_close){
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -123,7 +125,6 @@ public class AcceuilActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
                                 if(response.isSuccessful()){
-                                    UtilStatic.username = "";
                                     Intent d = new Intent(AcceuilActivity.this, ConnexionActivity.class);
                                     startActivity(d);
                                 }
@@ -139,41 +140,18 @@ public class AcceuilActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
     }
 
     private void remplacer(List<HomeItemResponse> laliste){
         adapter.list.clear();
         for (HomeItemResponse item : laliste) {
-            Item p = new Item();
-//            LocalDateTime date = LocalDateTime.now();
-//            DateTimeFormatter datetwo = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//            String dateform = date.format(datetwo);
-            p.nom = item.name;
-            p.date = item.deadline.toString();
-//            p.date  =  dateform;
-//            p.pourcentage = new Random().nextInt(20);
-//            p.tempsEcouler = new Random().nextInt(20);
-            adapter.list.add(0,p);
+
+            adapter.list.add(0,item);
         }
         adapter.notifyDataSetChanged();
     }
 
-    private void remplirRecycler() {
-        for (int i = 0 ; i < 1000 ; i++) {
-            Item p = new Item();
-            LocalDateTime date = LocalDateTime.now();
-            DateTimeFormatter datetwo = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String dateform = date.format(datetwo);
-            p.nom = "Bob " + i;
-            p.date  = dateform;
-            p.pourcentage = new Random().nextInt(20);
-            p.tempsEcouler = new Random().nextInt(20);
-            adapter.list.add(p);
-        }
-        adapter.notifyDataSetChanged();
-    }
+
 
     private void initRecycler(){
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
