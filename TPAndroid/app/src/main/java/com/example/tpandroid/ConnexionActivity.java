@@ -35,8 +35,9 @@ public class ConnexionActivity extends AppCompatActivity {
         EditText passw = findViewById(R.id.signInPassW);
 
 
+        ServiceCookie service = RetrofitCookie.get();
 
-        Service service = RetrofitUtil.get();
+//        Service service = RetrofitUtil.get();
 
 
         binding.versInscription.setOnClickListener(view -> {
@@ -56,7 +57,8 @@ public class ConnexionActivity extends AppCompatActivity {
                     public void onResponse(Call<SigninResponse> call, Response<SigninResponse> response) {
                         if(response.isSuccessful()){
                             Intent i = new Intent(ConnexionActivity.this, AcceuilActivity.class);
-                            i.putExtra("intent", response.body().username);
+//                            i.putExtra("intent", response.body().username);
+                            UtilStatic.username = response.body().username;
                             startActivity(i);
                         }
                     }

@@ -1,5 +1,6 @@
 package com.example.tpandroid.http;
 
+import org.kickmyb.transfer.AddTaskRequest;
 import org.kickmyb.transfer.SigninRequest;
 import org.kickmyb.transfer.SigninResponse;
 
@@ -19,6 +20,9 @@ public interface Service {
 
     @POST("/api/id/signout")
     Call<String> signout();
+
+    @POST("/api/add")
+    Call<String> addtask(@Body AddTaskRequest r);
 
 
 

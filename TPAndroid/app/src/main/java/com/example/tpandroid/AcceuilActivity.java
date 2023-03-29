@@ -19,13 +19,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tpandroid.databinding.ConnexionMainBinding;
+import com.example.tpandroid.http.RetrofitCookie;
+import com.example.tpandroid.http.RetrofitUtil;
+import com.example.tpandroid.http.Service;
+import com.example.tpandroid.http.ServiceCookie;
 import com.google.android.material.navigation.NavigationView;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import com.example.tpandroid.databinding.ActivityAcceuilBinding;
+
+import org.kickmyb.transfer.HomeItemResponse;
+import org.kickmyb.transfer.SigninResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class AcceuilActivity extends AppCompatActivity {
@@ -43,19 +55,34 @@ public class AcceuilActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Intent intent = getIntent();
+        ServiceCookie service = RetrofitCookie.get();
 
         // initialisation du recycler
         this.initRecycler();
         this.remplirRecycler();
 
-        this.remplacer();
 
 
         NavigationView nv = binding.navView;
         View header = nv.getHeaderView(0);
         TextView txt = (TextView) header.findViewById(R.id.navHeader);
-        txt.setText(intent.getStringExtra("intent"));
+        txt.setText(UtilStatic.username);
         DrawerLayout d1 = binding.drawerLayout;
+
+        RetrofitCookie.get().acceuil().enqueue(new Callback<List<HomeItemResponse>>() {
+            @Override
+            public void onResponse(Call<List<HomeItemResponse>> call, Response<List<HomeItemResponse>> response) {
+                // j'ai recu la liste, l faut que je l'affiche dans mon recycler
+                List<HomeItemResponse> maListeDuServeur = response.body();
+                remplacer(maListeDuServeur);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<HomeItemResponse>> call, Throwable t) {
+
+            }
+        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -92,8 +119,21 @@ public class AcceuilActivity extends AppCompatActivity {
                         startActivity(u);
                         return true;
                     case R.id.deconnexion:
-                        Intent d = new Intent(AcceuilActivity.this, ConnexionActivity.class);
-                        startActivity(d);
+                        service.signout().enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                if(response.isSuccessful()){
+                                    UtilStatic.username = "";
+                                    Intent d = new Intent(AcceuilActivity.this, ConnexionActivity.class);
+                                    startActivity(d);
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                Log.i("RETROFIT", t.getMessage());
+                                Toast.makeText(AcceuilActivity.this, "Déconnexion échoué" , Toast.LENGTH_LONG).show();
+                            }
+                        });
                         return true;
                 }
                 return false;
@@ -103,17 +143,18 @@ public class AcceuilActivity extends AppCompatActivity {
 
     }
 
-    private void remplacer(){
+    private void remplacer(List<HomeItemResponse> laliste){
         adapter.list.clear();
-        for (int i = 1 ; i <= 200 ; i++) {
+        for (HomeItemResponse item : laliste) {
             Item p = new Item();
-            LocalDateTime date = LocalDateTime.now();
-            DateTimeFormatter datetwo = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String dateform = date.format(datetwo);
-            p.nom = "Objet#" + i;
-            p.date  =  dateform;
-            p.pourcentage = new Random().nextInt(20);
-            p.tempsEcouler = new Random().nextInt(20);
+//            LocalDateTime date = LocalDateTime.now();
+//            DateTimeFormatter datetwo = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//            String dateform = date.format(datetwo);
+            p.nom = item.name;
+            p.date = item.deadline.toString();
+//            p.date  =  dateform;
+//            p.pourcentage = new Random().nextInt(20);
+//            p.tempsEcouler = new Random().nextInt(20);
             adapter.list.add(0,p);
         }
         adapter.notifyDataSetChanged();
