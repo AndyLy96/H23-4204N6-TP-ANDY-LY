@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +61,7 @@ public class ConsultationActivity extends AppCompatActivity {
         TextView taskDateDue = findViewById(R.id.taskdueDateDetail);
         TextView taskTempsÉcoulé = findViewById(R.id.taskElapsedTimeDetail);
         EditText edPercentage = findViewById(R.id.taskPourcentageDetail);
+        Button btnProgres = findViewById(R.id.confirmProgress);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -68,9 +70,10 @@ public class ConsultationActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<TaskDetailResponse> call, Response<TaskDetailResponse> response) {
                 // gerer les erreurs
-                taskname.setText(response.body().name.toString());
+                taskname.setText(response.body().name);
                 taskDateDue.setText(response.body().deadline.toString());
-                taskTempsÉcoulé
+                taskTempsÉcoulé.setText("" + response.body().percentageTimeSpent);
+                edPercentage.setText("" + response.body().percentageDone);
             }
 
             @Override
@@ -79,6 +82,29 @@ public class ConsultationActivity extends AppCompatActivity {
                 Toast.makeText(ConsultationActivity.this, "Création de la tache échoué" , Toast.LENGTH_LONG).show();
             }
         });
+
+
+        binding.confirmProgress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                service.taskProgress(id, Integer.parseInt(edPercentage.getText().toString())).enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if(response.isSuccessful()){
+                            Intent i = new Intent(ConsultationActivity.this, AcceuilActivity.class);
+                            startActivity(i);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.i("RETROFIT", t.getMessage());
+                        Toast.makeText(ConsultationActivity.this, "Progress change échoué" , Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+
 
         barToggle = new ActionBarDrawerToggle(this,d1, R.string.drawer_open, R.string.drawer_close){
             @Override

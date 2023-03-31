@@ -36,4 +36,8 @@ public interface ServiceCookie {
 
     @GET("/api/detail/{id}")
     Call<TaskDetailResponse> taskDetail(@Path("id") Long numberId);
+
+    @GET("/api/progress/{id}/{valeur}")
+    Call<String> taskProgress(@Path("id") Long taskId, @Path("valeur") int value);
+
 }

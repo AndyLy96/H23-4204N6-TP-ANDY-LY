@@ -18,7 +18,9 @@ public class RetrofitCookie {
                     .addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(CustomGson.getIt()))
                     .client(client())
-                    .baseUrl("https://4204n6kickmyb-pasgratuit.azurewebsites.net")
+                    //.baseUrl("https://4204n6kickmyb-pasgratuit.azurewebsites.net")
+                    //.baseUrl("https://4204n6kickmyb-2157338.azurewebsites.net")
+                    .baseUrl("http://10.0.2.2:8080/")
                     .build();
 
             instance = retrofit.create(ServiceCookie.class);

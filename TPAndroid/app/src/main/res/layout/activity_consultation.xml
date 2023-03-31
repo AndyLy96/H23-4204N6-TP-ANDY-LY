@@ -98,11 +98,16 @@
                 android:textSize="20dp" />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:hint="100%"
+                android:inputType="number"
                 android:id="@+id/taskPourcentageDetail"/>
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/confirmProgress"
+                android:text="-->"/>
 
         </LinearLayout>
 
