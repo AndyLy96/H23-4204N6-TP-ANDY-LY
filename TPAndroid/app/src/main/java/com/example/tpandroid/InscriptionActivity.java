@@ -17,6 +17,8 @@ import com.example.tpandroid.http.ServiceCookie;
 import org.kickmyb.transfer.SigninRequest;
 import org.kickmyb.transfer.SigninResponse;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,12 +68,33 @@ public class InscriptionActivity extends AppCompatActivity {
                 service.signup(s).enqueue(new Callback<SigninResponse>() {
                     @Override
                     public void onResponse(Call<SigninResponse> call, Response<SigninResponse> response) {
+                        progressD.dismiss();
                         if(response.isSuccessful()){
-                            progressD.dismiss();
+
                             Intent i = new Intent(InscriptionActivity.this, AcceuilActivity.class);
 //                            i.putExtra("intent", response.body().username);
                             UtilStatic.username = response.body().username;
                             startActivity(i);
+                        }else {
+                            // ERROR ERROR ERROR
+                            try {
+                                String corpsErreur = response.errorBody().string();
+                                Log.i("RETROFIT", "le code " + response.code());
+                                Log.i("RETROFIT", "le message " + response.message());
+                                Log.i("RETROFIT", "le corps " + corpsErreur);
+                                if (corpsErreur.contains("UsernameTooShort")) {
+                                    // TODO remplacer par un objet TropCourtgraphique mieux qu'un toast
+                                    Toast.makeText(InscriptionActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
+                                }
+                                else if(corpsErreur.contains("PasswordTooShort")) {
+                                    Toast.makeText(InscriptionActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
+                                }
+                                else if(corpsErreur.contains("UsernameAlreadyTaken")) {
+                                    Toast.makeText(InscriptionActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                     @Override

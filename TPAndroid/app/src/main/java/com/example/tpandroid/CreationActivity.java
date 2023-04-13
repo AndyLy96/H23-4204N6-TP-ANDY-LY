@@ -25,6 +25,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import org.kickmyb.transfer.AddTaskRequest;
 
+import java.io.IOException;
 import java.util.Date;
 
 import retrofit2.Call;
@@ -128,11 +129,30 @@ public class CreationActivity extends AppCompatActivity {
                         service.signout().enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
+                                progressD.dismiss();
                                 if(response.isSuccessful()){
-                                    progressD.dismiss();
                                     UtilStatic.username = "";
                                     Intent d = new Intent(CreationActivity.this, ConnexionActivity.class);
                                     startActivity(d);
+                                }else {
+                                    // ERROR ERROR ERROR
+                                    try {
+                                        String corpsErreur = response.errorBody().string();
+                                        Log.i("RETROFIT", "le code " + response.code());
+                                        Log.i("RETROFIT", "le message " + response.message());
+                                        Log.i("RETROFIT", "le corps " + corpsErreur);
+                                        if (corpsErreur.contains("TooShort")) {
+                                            // TODO remplacer par un objet TropCourtgraphique mieux qu'un toast
+                                            Toast.makeText(CreationActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
+                                        }else if (corpsErreur.contains("Existing")){
+                                            Toast.makeText(CreationActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
+                                        }else if (corpsErreur.contains("Empty")){
+                                            Toast.makeText(CreationActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             }
                             @Override

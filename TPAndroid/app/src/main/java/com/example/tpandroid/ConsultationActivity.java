@@ -74,10 +74,17 @@ public class ConsultationActivity extends AppCompatActivity {
             public void onResponse(Call<TaskDetailResponse> call, Response<TaskDetailResponse> response) {
                 // gerer les erreurs
                 progressD.dismiss();
-                taskname.setText(response.body().name);
-                taskDateDue.setText(response.body().deadline.toString());
-                taskTempsÉcoulé.setText("" + response.body().percentageTimeSpent);
-                edPercentage.setText("" + response.body().percentageDone);
+                if (response.isSuccessful())
+                {
+                    taskname.setText(response.body().name);
+                    taskDateDue.setText(response.body().deadline.toString());
+                    taskTempsÉcoulé.setText("" + response.body().percentageTimeSpent);
+                    edPercentage.setText("" + response.body().percentageDone);
+                }
+                else{
+
+                }
+
             }
 
             @Override
