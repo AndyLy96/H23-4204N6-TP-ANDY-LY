@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class CreationActivity extends AppCompatActivity {
 
     ActivityCreationBinding binding;
     ActionBarDrawerToggle barToggle;
+    ProgressDialog progressD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +57,21 @@ public class CreationActivity extends AppCompatActivity {
                 long date = datePicker.getCalendarView().getDate();
                 Date officialDate = new Date(date);
                 request.deadline = officialDate;
-
+                progressD = ProgressDialog.show(CreationActivity.this, "Please wait",
+                        "Long operation starts...", true);
                 service.addtask(request).enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         // gerer les erreurs
-
+                        progressD.dismiss();
                         Intent i = new Intent(CreationActivity.this, AcceuilActivity.class);
                         startActivity(i);
                     }
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
+                        progressD.dismiss();
+
                         Log.i("RETROFIT", t.getMessage());
                         Toast.makeText(CreationActivity.this, "Création de la tache échoué" , Toast.LENGTH_LONG).show();
                     }
@@ -118,10 +123,13 @@ public class CreationActivity extends AppCompatActivity {
                         startActivity(u);
                         return true;
                     case R.id.deconnexion:
+                        progressD = ProgressDialog.show(CreationActivity.this, "Please wait",
+                                "Long operation starts...", true);
                         service.signout().enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
                                 if(response.isSuccessful()){
+                                    progressD.dismiss();
                                     UtilStatic.username = "";
                                     Intent d = new Intent(CreationActivity.this, ConnexionActivity.class);
                                     startActivity(d);
@@ -129,6 +137,7 @@ public class CreationActivity extends AppCompatActivity {
                             }
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
+                                progressD.dismiss();
                                 Log.i("RETROFIT", t.getMessage());
                                 Toast.makeText(CreationActivity.this, "Déconnexion échoué" , Toast.LENGTH_LONG).show();
                             }

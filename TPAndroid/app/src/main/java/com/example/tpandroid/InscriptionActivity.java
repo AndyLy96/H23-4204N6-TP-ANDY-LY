@@ -2,6 +2,7 @@ package com.example.tpandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ import retrofit2.Response;
 public class InscriptionActivity extends AppCompatActivity {
 
     ActivityInscriptionBinding binding;
+    ProgressDialog progressD;
 
 
     @Override
@@ -59,10 +61,13 @@ public class InscriptionActivity extends AppCompatActivity {
                     Toast.makeText(InscriptionActivity.this, "Password not the same" , Toast.LENGTH_LONG).show();
                 }
 
+                progressD = ProgressDialog.show(InscriptionActivity.this, "Please wait",
+                        "Long operation starts...", true);
                 service.signup(s).enqueue(new Callback<SigninResponse>() {
                     @Override
                     public void onResponse(Call<SigninResponse> call, Response<SigninResponse> response) {
                         if(response.isSuccessful()){
+                            progressD.dismiss();
                             Intent i = new Intent(InscriptionActivity.this, AcceuilActivity.class);
 //                            i.putExtra("intent", response.body().username);
                             UtilStatic.username = response.body().username;
@@ -71,6 +76,8 @@ public class InscriptionActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onFailure(Call<SigninResponse> call, Throwable t) {
+                        progressD.dismiss();
+
                         Log.i("RETROFIT", t.getMessage());
                     }
                 });

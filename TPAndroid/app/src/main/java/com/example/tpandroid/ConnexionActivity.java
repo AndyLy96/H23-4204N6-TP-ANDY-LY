@@ -2,6 +2,7 @@ package com.example.tpandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ import retrofit2.Response;
 public class ConnexionActivity extends AppCompatActivity {
 
     ConnexionMainBinding binding;
+    ProgressDialog progressD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,8 @@ public class ConnexionActivity extends AppCompatActivity {
                 SigninRequest s = new SigninRequest();
                 s.username = user.getText().toString();
                 s.password = passw.getText().toString();
+                progressD = ProgressDialog.show(ConnexionActivity.this, "Please wait",
+                        "Long operation starts...", true);
                 service.signin(s).enqueue(new Callback<SigninResponse>() {
                     @Override
                     public void onResponse(Call<SigninResponse> call, Response<SigninResponse> response) {
@@ -57,12 +61,15 @@ public class ConnexionActivity extends AppCompatActivity {
                             Intent i = new Intent(ConnexionActivity.this, AcceuilActivity.class);
 //                            i.putExtra("intent", response.body().username);
                             UtilStatic.username = response.body().username;
+                            progressD.dismiss();
                             startActivity(i);
                         }
                     }
                     @Override
                     public void onFailure(Call<SigninResponse> call, Throwable t) {
                         Log.i("RETROFIT", t.getMessage());
+                        progressD.dismiss();
+
                         Toast.makeText(ConnexionActivity.this, "Connexion échoué" , Toast.LENGTH_LONG).show();
                     }
                 });

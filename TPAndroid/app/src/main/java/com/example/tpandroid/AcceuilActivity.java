@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -40,6 +41,8 @@ public class AcceuilActivity extends AppCompatActivity {
     ItemAdapter adapter;
     ActionBarDrawerToggle barToggle;
 
+    ProgressDialog progressD;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,8 @@ public class AcceuilActivity extends AppCompatActivity {
         // initialisation du recycler
         this.initRecycler();
 
-
+        progressD = ProgressDialog.show(AcceuilActivity.this, "Please wait",
+                "Long operation starts...", true);
 
         NavigationView nv = binding.navView;
         View header = nv.getHeaderView(0);
@@ -73,6 +77,7 @@ public class AcceuilActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<HomeItemResponse>> call, Response<List<HomeItemResponse>> response) {
                 // j'ai recu la liste, l faut que je l'affiche dans mon recycler
+                progressD.dismiss();
                 List<HomeItemResponse> maListeDuServeur = response.body();
                 remplacer(maListeDuServeur);
 
@@ -80,6 +85,7 @@ public class AcceuilActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<HomeItemResponse>> call, Throwable t) {
+                progressD.dismiss();
 
             }
         });
@@ -121,16 +127,20 @@ public class AcceuilActivity extends AppCompatActivity {
                         startActivity(u);
                         return true;
                     case R.id.deconnexion:
+                        progressD = ProgressDialog.show(AcceuilActivity.this, "Please wait",
+                                "Long operation starts...", true);
                         service.signout().enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
                                 if(response.isSuccessful()){
+                                    progressD.dismiss();
                                     Intent d = new Intent(AcceuilActivity.this, ConnexionActivity.class);
                                     startActivity(d);
                                 }
                             }
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
+                                progressD.dismiss();
                                 Log.i("RETROFIT", t.getMessage());
                                 Toast.makeText(AcceuilActivity.this, "Déconnexion échoué" , Toast.LENGTH_LONG).show();
                             }

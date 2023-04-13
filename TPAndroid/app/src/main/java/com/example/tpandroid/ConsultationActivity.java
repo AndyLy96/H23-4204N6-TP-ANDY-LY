@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class ConsultationActivity extends AppCompatActivity {
     ActionBarDrawerToggle barToggle;
 
     ActivityConsultationBinding binding;
+    ProgressDialog progressD;
 
 
     @Override
@@ -64,12 +66,14 @@ public class ConsultationActivity extends AppCompatActivity {
         Button btnProgres = findViewById(R.id.confirmProgress);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        progressD = ProgressDialog.show(ConsultationActivity.this, "Please wait",
+                "Long operation starts...", true);
         service.taskDetail(id).enqueue(new Callback<TaskDetailResponse>() {
 
             @Override
             public void onResponse(Call<TaskDetailResponse> call, Response<TaskDetailResponse> response) {
                 // gerer les erreurs
+                progressD.dismiss();
                 taskname.setText(response.body().name);
                 taskDateDue.setText(response.body().deadline.toString());
                 taskTempsÉcoulé.setText("" + response.body().percentageTimeSpent);
@@ -78,6 +82,7 @@ public class ConsultationActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<TaskDetailResponse> call, Throwable t) {
+                progressD.dismiss();
                 Log.i("RETROFIT", t.getMessage());
                 Toast.makeText(ConsultationActivity.this, "Création de la tache échoué" , Toast.LENGTH_LONG).show();
             }
@@ -87,10 +92,13 @@ public class ConsultationActivity extends AppCompatActivity {
         binding.confirmProgress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressD = ProgressDialog.show(ConsultationActivity.this, "Please wait",
+                        "Long operation starts...", true);
                 service.taskProgress(id, Integer.parseInt(edPercentage.getText().toString())).enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         if(response.isSuccessful()){
+                            progressD.dismiss();
                             Intent i = new Intent(ConsultationActivity.this, AcceuilActivity.class);
                             startActivity(i);
                         }
@@ -99,6 +107,7 @@ public class ConsultationActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
                         Log.i("RETROFIT", t.getMessage());
+                        progressD.dismiss();
                         Toast.makeText(ConsultationActivity.this, "Progress change échoué" , Toast.LENGTH_LONG).show();
                     }
                 });
@@ -139,10 +148,13 @@ public class ConsultationActivity extends AppCompatActivity {
                         startActivity(u);
                         return true;
                     case R.id.deconnexion:
+                        progressD = ProgressDialog.show(ConsultationActivity.this, "Please wait",
+                                "Long operation starts...", true);
                         service.signout().enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
                                 if(response.isSuccessful()){
+                                    progressD.dismiss();
                                     UtilStatic.username = "";
                                     Intent d = new Intent(ConsultationActivity.this, ConnexionActivity.class);
                                     startActivity(d);
@@ -150,6 +162,7 @@ public class ConsultationActivity extends AppCompatActivity {
                             }
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
+                                progressD.dismiss();
                                 Log.i("RETROFIT", t.getMessage());
                                 Toast.makeText(ConsultationActivity.this, "Déconnexion échoué" , Toast.LENGTH_LONG).show();
                             }

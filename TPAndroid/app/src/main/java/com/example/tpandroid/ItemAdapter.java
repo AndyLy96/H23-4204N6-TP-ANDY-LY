@@ -1,5 +1,6 @@
 package com.example.tpandroid;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> {
         public List<HomeItemResponse> list;
+         ProgressDialog progressD;
 
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
@@ -69,8 +71,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
             holder.tvPourcent.setText(""+personneCourante.percentageDone);// TODO setText sur un integer crash
             holder.tvCreate.setText(""+personneCourante.percentageTimeSpent);
 
-
             holder.layout.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View view) {
                     Intent i = new Intent(view.getContext(), ConsultationActivity.class);
