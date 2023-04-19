@@ -59,7 +59,7 @@ public class CreationActivity extends AppCompatActivity {
                 Date officialDate = new Date(date);
                 request.deadline = officialDate;
                 progressD = ProgressDialog.show(CreationActivity.this, "Please wait",
-                        "Long operation starts...", true);
+                        getString(R.string.waiting), true);
                 service.addtask(request).enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {

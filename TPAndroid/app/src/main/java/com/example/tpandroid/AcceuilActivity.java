@@ -57,7 +57,7 @@ public class AcceuilActivity extends AppCompatActivity {
         this.initRecycler();
 
         progressD = ProgressDialog.show(AcceuilActivity.this, "Please wait",
-                "Long operation starts...", true);
+                getString(R.string.waiting), true);
 
         NavigationView nv = binding.navView;
         View header = nv.getHeaderView(0);
@@ -128,7 +128,7 @@ public class AcceuilActivity extends AppCompatActivity {
                         return true;
                     case R.id.deconnexion:
                         progressD = ProgressDialog.show(AcceuilActivity.this, "Please wait",
-                                "Long operation starts...", true);
+                                getString(R.string.waiting), true);
                         service.signout().enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {

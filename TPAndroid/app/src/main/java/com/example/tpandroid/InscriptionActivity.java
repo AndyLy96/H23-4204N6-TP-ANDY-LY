@@ -64,7 +64,7 @@ public class InscriptionActivity extends AppCompatActivity {
                 }
 
                 progressD = ProgressDialog.show(InscriptionActivity.this, "Please wait",
-                        "Long operation starts...", true);
+                        getString(R.string.waiting), true);
                 service.signup(s).enqueue(new Callback<SigninResponse>() {
                     @Override
                     public void onResponse(Call<SigninResponse> call, Response<SigninResponse> response) {

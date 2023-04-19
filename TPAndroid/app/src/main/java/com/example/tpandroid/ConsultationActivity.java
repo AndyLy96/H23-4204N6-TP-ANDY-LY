@@ -67,7 +67,7 @@ public class ConsultationActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         progressD = ProgressDialog.show(ConsultationActivity.this, "Please wait",
-                "Long operation starts...", true);
+                getString(R.string.waiting), true);
         service.taskDetail(id).enqueue(new Callback<TaskDetailResponse>() {
 
             @Override

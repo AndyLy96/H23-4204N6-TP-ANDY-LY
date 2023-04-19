@@ -25,4 +25,6 @@
     <string name="homepage_drawer">Homepage</string>
     <string name="add_task_drawer">Add task</string>
     <string name="logout">Log Out</string>
+    <string name="waiting">Wait please</string>
+    <string name="pls_wait">Please wait</string>
 </resources>

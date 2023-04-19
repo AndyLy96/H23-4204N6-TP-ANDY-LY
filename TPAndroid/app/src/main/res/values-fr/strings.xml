@@ -26,6 +26,8 @@
     <string name="homepage_drawer">Accueil</string>
     <string name="add_task_drawer">Ajout de tâche</string>
     <string name="logout">Déconnexion</string>
+    <string name="waiting">Attendre s.v.p</string>
+    <string name="pls_wait">Please wait</string>
 
 
 </resources>
