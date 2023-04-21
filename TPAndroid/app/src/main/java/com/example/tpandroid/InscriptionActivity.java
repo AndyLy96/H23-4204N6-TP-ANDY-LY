@@ -63,7 +63,7 @@ public class InscriptionActivity extends AppCompatActivity {
                     Toast.makeText(InscriptionActivity.this, "Password not the same" , Toast.LENGTH_LONG).show();
                 }
 
-                progressD = ProgressDialog.show(InscriptionActivity.this, "Please wait",
+                progressD = ProgressDialog.show(InscriptionActivity.this, getString(R.string.loading),
                         getString(R.string.waiting), true);
                 service.signup(s).enqueue(new Callback<SigninResponse>() {
                     @Override
@@ -84,13 +84,16 @@ public class InscriptionActivity extends AppCompatActivity {
                                 Log.i("RETROFIT", "le corps " + corpsErreur);
                                 if (corpsErreur.contains("UsernameTooShort")) {
                                     // TODO remplacer par un objet TropCourtgraphique mieux qu'un toast
-                                    Toast.makeText(InscriptionActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(InscriptionActivity.this, getString(R.string.error_usershort), Toast.LENGTH_SHORT).show();
+                                    showMessageSurChampUser();
                                 }
                                 else if(corpsErreur.contains("PasswordTooShort")) {
-                                    Toast.makeText(InscriptionActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(InscriptionActivity.this, getString(R.string.error_passwshrt), Toast.LENGTH_SHORT).show();
+                                    showMessageSurChampPassw();
                                 }
                                 else if(corpsErreur.contains("UsernameAlreadyTaken")) {
-                                    Toast.makeText(InscriptionActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(InscriptionActivity.this, getString(R.string.error_usertaken), Toast.LENGTH_SHORT).show();
+                                    showMessageSurChampusertaken();
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -107,5 +110,29 @@ public class InscriptionActivity extends AppCompatActivity {
             }
 
         });
+    }
+    private void showMessageSurChampUser(){
+        // si le message d'erreur sur un champ texte est en dehors de la zone
+        // visible, il faut demander le focus pour obliger le scroll à y aller
+        binding.signupUser.setError(getString(R.string.error_usershort));
+        binding.signupUser.requestFocus();
+
+    }
+    private void showMessageSurChampPassw(){
+        // si le message d'erreur sur un champ texte est en dehors de la zone
+        // visible, il faut demander le focus pour obliger le scroll à y aller
+        binding.signupPassw.setError(getString(R.string.error_passwshrt));
+        binding.signupPasswConfirm.setError(getString(R.string.error_passwshrt));
+        binding.signupPassw.requestFocus();
+
+    }
+
+    private void showMessageSurChampusertaken(){
+        // si le message d'erreur sur un champ texte est en dehors de la zone
+        // visible, il faut demander le focus pour obliger le scroll à y aller
+        binding.signupUser.setError(getString(R.string.error_usertaken));
+        binding.signupUser.requestFocus();
+
+
     }
 }

@@ -56,7 +56,7 @@ public class AcceuilActivity extends AppCompatActivity {
         // initialisation du recycler
         this.initRecycler();
 
-        progressD = ProgressDialog.show(AcceuilActivity.this, "Please wait",
+        progressD = ProgressDialog.show(AcceuilActivity.this, getString(R.string.loading),
                 getString(R.string.waiting), true);
 
         NavigationView nv = binding.navView;
@@ -127,7 +127,7 @@ public class AcceuilActivity extends AppCompatActivity {
                         startActivity(u);
                         return true;
                     case R.id.deconnexion:
-                        progressD = ProgressDialog.show(AcceuilActivity.this, "Please wait",
+                        progressD = ProgressDialog.show(AcceuilActivity.this, getString(R.string.loading),
                                 getString(R.string.waiting), true);
                         service.signout().enqueue(new Callback<String>() {
                             @Override

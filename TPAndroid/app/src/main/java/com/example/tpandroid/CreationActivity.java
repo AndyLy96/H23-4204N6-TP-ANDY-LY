@@ -58,15 +58,38 @@ public class CreationActivity extends AppCompatActivity {
                 long date = datePicker.getCalendarView().getDate();
                 Date officialDate = new Date(date);
                 request.deadline = officialDate;
-                progressD = ProgressDialog.show(CreationActivity.this, "Please wait",
+                progressD = ProgressDialog.show(CreationActivity.this, getString(R.string.loading),
                         getString(R.string.waiting), true);
                 service.addtask(request).enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         // gerer les erreurs
                         progressD.dismiss();
-                        Intent i = new Intent(CreationActivity.this, AcceuilActivity.class);
-                        startActivity(i);
+                        if(response.isSuccessful())
+                        {
+                            Intent i = new Intent(CreationActivity.this, AcceuilActivity.class);
+                            startActivity(i);
+                        }else {
+                            // ERROR ERROR ERROR
+                            try {
+                                String corpsErreur = response.errorBody().string();
+                                Log.i("RETROFIT", "le code " + response.code());
+                                Log.i("RETROFIT", "le message " + response.message());
+                                Log.i("RETROFIT", "le corps " + corpsErreur);
+                                if (corpsErreur.contains("TooShort")) {
+                                    // TODO remplacer par un objet TropCourtgraphique mieux qu'un toast
+                                    Toast.makeText(CreationActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
+                                }else if (corpsErreur.contains("Existing")){
+                                    Toast.makeText(CreationActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
+                                }else if (corpsErreur.contains("Empty")){
+                                    Toast.makeText(CreationActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
+                                }
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
                     }
 
                     @Override
@@ -124,7 +147,7 @@ public class CreationActivity extends AppCompatActivity {
                         startActivity(u);
                         return true;
                     case R.id.deconnexion:
-                        progressD = ProgressDialog.show(CreationActivity.this, "Please wait",
+                        progressD = ProgressDialog.show(CreationActivity.this, getString(R.string.loading),
                                 "Long operation starts...", true);
                         service.signout().enqueue(new Callback<String>() {
                             @Override
@@ -134,25 +157,6 @@ public class CreationActivity extends AppCompatActivity {
                                     UtilStatic.username = "";
                                     Intent d = new Intent(CreationActivity.this, ConnexionActivity.class);
                                     startActivity(d);
-                                }else {
-                                    // ERROR ERROR ERROR
-                                    try {
-                                        String corpsErreur = response.errorBody().string();
-                                        Log.i("RETROFIT", "le code " + response.code());
-                                        Log.i("RETROFIT", "le message " + response.message());
-                                        Log.i("RETROFIT", "le corps " + corpsErreur);
-                                        if (corpsErreur.contains("TooShort")) {
-                                            // TODO remplacer par un objet TropCourtgraphique mieux qu'un toast
-                                            Toast.makeText(CreationActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
-                                        }else if (corpsErreur.contains("Existing")){
-                                            Toast.makeText(CreationActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
-                                        }else if (corpsErreur.contains("Empty")){
-                                            Toast.makeText(CreationActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
-                                        }
-
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
                                 }
                             }
                             @Override

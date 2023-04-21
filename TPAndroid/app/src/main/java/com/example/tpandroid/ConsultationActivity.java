@@ -66,7 +66,7 @@ public class ConsultationActivity extends AppCompatActivity {
         Button btnProgres = findViewById(R.id.confirmProgress);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        progressD = ProgressDialog.show(ConsultationActivity.this, "Please wait",
+        progressD = ProgressDialog.show(ConsultationActivity.this, getString(R.string.loading),
                 getString(R.string.waiting), true);
         service.taskDetail(id).enqueue(new Callback<TaskDetailResponse>() {
 
@@ -81,7 +81,7 @@ public class ConsultationActivity extends AppCompatActivity {
                     taskTempsÉcoulé.setText("" + response.body().percentageTimeSpent);
                     edPercentage.setText("" + response.body().percentageDone);
                 }
-                else{
+                else {
 
                 }
 
@@ -99,25 +99,32 @@ public class ConsultationActivity extends AppCompatActivity {
         binding.confirmProgress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressD = ProgressDialog.show(ConsultationActivity.this, "Please wait",
-                        "Long operation starts...", true);
-                service.taskProgress(id, Integer.parseInt(edPercentage.getText().toString())).enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        if(response.isSuccessful()){
+                progressD = ProgressDialog.show(ConsultationActivity.this, getString(R.string.loading),
+                        getString(R.string.waiting), true);
+                if(Integer.parseInt(edPercentage.getText().toString()) <= 100 && Integer.parseInt(edPercentage.getText().toString()) >= 0)
+                {
+                    service.taskProgress(id, Integer.parseInt(edPercentage.getText().toString())).enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
                             progressD.dismiss();
-                            Intent i = new Intent(ConsultationActivity.this, AcceuilActivity.class);
-                            startActivity(i);
+                            if(response.isSuccessful()){
+                                Intent i = new Intent(ConsultationActivity.this, AcceuilActivity.class);
+                                startActivity(i);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                        Log.i("RETROFIT", t.getMessage());
-                        progressD.dismiss();
-                        Toast.makeText(ConsultationActivity.this, "Progress change échoué" , Toast.LENGTH_LONG).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            Log.i("RETROFIT", t.getMessage());
+                            progressD.dismiss();
+                            Toast.makeText(ConsultationActivity.this, "Progress change échoué" , Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }else {
+                    progressD.dismiss();
+                    Toast.makeText(ConsultationActivity.this, "0 to 100 pls", Toast.LENGTH_SHORT).show();
+                    showMessageSurChamp();
+                }
             }
         });
 
@@ -201,5 +208,12 @@ public class ConsultationActivity extends AppCompatActivity {
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         barToggle.onConfigurationChanged(newConfig);
         super.onConfigurationChanged(newConfig);
+    }
+    private void showMessageSurChamp(){
+        // si le message d'erreur sur un champ texte est en dehors de la zone
+        // visible, il faut demander le focus pour obliger le scroll à y aller
+        binding.taskPourcentageDetail.setError(getString(R.string.error_detail));
+        binding.taskPourcentageDetail.requestFocus();
+
     }
 }

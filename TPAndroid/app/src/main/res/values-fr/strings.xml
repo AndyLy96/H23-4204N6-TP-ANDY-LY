@@ -28,6 +28,11 @@
     <string name="logout">Déconnexion</string>
     <string name="waiting">Attendre s.v.p</string>
     <string name="pls_wait">Please wait</string>
+    <string name="loading">Chargement</string>
+    <string name="error_detail">Trop</string>
+    <string name="error_usershort">Trop court</string>
+    <string name="error_passwshrt">Mot de passe trop court</string>
+    <string name="error_usertaken">Pseudo prit</string>
 
 
 </resources>

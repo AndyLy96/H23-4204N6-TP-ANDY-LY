@@ -54,7 +54,7 @@ public class ConnexionActivity extends AppCompatActivity {
                 SigninRequest s = new SigninRequest();
                 s.username = user.getText().toString();
                 s.password = passw.getText().toString();
-                progressD = ProgressDialog.show(ConnexionActivity.this, getString(R.string.pls_wait),
+                progressD = ProgressDialog.show(ConnexionActivity.this,getString(R.string.loading),
                         getString(R.string.waiting), true);
                 service.signin(s).enqueue(new Callback<SigninResponse>() {
                     @Override
