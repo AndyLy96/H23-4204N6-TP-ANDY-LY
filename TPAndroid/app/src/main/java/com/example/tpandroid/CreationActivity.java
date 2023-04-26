@@ -83,6 +83,9 @@ public class CreationActivity extends AppCompatActivity {
                                     Toast.makeText(CreationActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
                                 }else if (corpsErreur.contains("Empty")){
                                     Toast.makeText(CreationActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
+                                }else if(response.code() == 403)
+                                {
+
                                 }
 
                             } catch (IOException e) {

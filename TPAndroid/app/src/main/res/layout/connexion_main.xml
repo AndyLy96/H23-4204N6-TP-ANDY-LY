@@ -1,69 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordo"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+
+    <androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".ConnexionActivity">
+        android:id="@+id/nestedscrollview">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".ConnexionActivity"
+            android:id="@+id/linearlayout">
 
 
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:text="@string/connection"
-            android:textAllCaps="true"
-            android:textSize="30dp"
-            android:fontFamily="monospace"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:layout_gravity="center" />
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:text="@string/connection"
+                android:textAllCaps="true"
+                android:textSize="30dp"
+                android:fontFamily="monospace"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_gravity="center" />
 
-        <EditText
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/username_here"
-            android:layout_gravity="center"
-            android:id="@+id/signInUser"/>
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/username_here"
+                android:layout_gravity="center"
+                android:id="@+id/signInUser"/>
 
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
-
-
-
-        <EditText
-            android:layout_width="300dp"
-            android:id="@+id/signInPassW"
-            android:layout_height="wrap_content"
-            android:hint="@string/password_here"
-            android:inputType="textPassword"
-            android:layout_gravity="center"/>
-
-        <Button
-            android:id="@+id/versAcceuil1"
-            android:layout_width="300dp"
-            android:layout_height="70dp"
-            android:text="@string/connection"
-            android:layout_gravity="center"/>
-
-        <Button
-            android:id="@+id/versInscription"
-            android:layout_width="300dp"
-            android:layout_height="70dp"
-            android:text="Inscription"
-            android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
 
 
 
+            <EditText
+                android:layout_width="300dp"
+                android:id="@+id/signInPassW"
+                android:layout_height="wrap_content"
+                android:hint="@string/password_here"
+                android:inputType="textPassword"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:id="@+id/versAcceuil1"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:text="@string/connection"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:id="@+id/versInscription"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:text="Inscription"
+                android:layout_gravity="center"/>
 
 
-    </LinearLayout>
 
-</androidx.core.widget.NestedScrollView>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

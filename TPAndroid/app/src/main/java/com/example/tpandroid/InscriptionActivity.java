@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.tpandroid.databinding.ActivityInscriptionBinding;
 import com.example.tpandroid.http.RetrofitCookie;
 import com.example.tpandroid.http.ServiceCookie;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.kickmyb.transfer.SigninRequest;
 import org.kickmyb.transfer.SigninResponse;
@@ -94,6 +95,8 @@ public class InscriptionActivity extends AppCompatActivity {
                                 else if(corpsErreur.contains("UsernameAlreadyTaken")) {
                                     Toast.makeText(InscriptionActivity.this, getString(R.string.error_usertaken), Toast.LENGTH_SHORT).show();
                                     showMessageSurChampusertaken();
+                                }else {
+                                    unexpected();
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -103,6 +106,8 @@ public class InscriptionActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<SigninResponse> call, Throwable t) {
                         progressD.dismiss();
+                        retry();
+                        Toast.makeText(InscriptionActivity.this, R.string.no_network , Toast.LENGTH_LONG).show();
 
                         Log.i("RETROFIT", t.getMessage());
                     }
@@ -134,5 +139,22 @@ public class InscriptionActivity extends AppCompatActivity {
         binding.signupUser.requestFocus();
 
 
+    }
+    private void retry() {
+        Snackbar snacky = Snackbar.make(binding.nestedscrollview,
+                R.string.no_network, Snackbar.LENGTH_LONG);
+        snacky.setAction(R.string.retry, view1 -> {
+            Toast.makeText(this, "Retrying", Toast.LENGTH_SHORT).show();
+        });
+        snacky.show();
+    }
+
+    private void unexpected() {
+        Snackbar snacky = Snackbar.make(binding.nestedscrollview,
+                R.string.unexpected, Snackbar.LENGTH_LONG);
+        snacky.setAction(R.string.retry, view1 -> {
+            Toast.makeText(this, "Retrying", Toast.LENGTH_SHORT).show();
+        });
+        snacky.show();
     }
 }

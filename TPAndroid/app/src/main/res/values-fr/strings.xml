@@ -33,6 +33,11 @@
     <string name="error_usershort">Trop court</string>
     <string name="error_passwshrt">Mot de passe trop court</string>
     <string name="error_usertaken">Pseudo prit</string>
+    <string name="no_network">Aucune connexion</string>
+    <string name="retry">Réessayer</string>
+    <string name="unexpected">Erreur inattendue</string>
+    <string name="badcredentials">Mauvais identifiants</string>
+    <string name="serviceException">Service exception</string>
 
 
 </resources>

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.tpandroid.databinding.ConnexionMainBinding;
 import com.example.tpandroid.http.RetrofitCookie;
 import com.example.tpandroid.http.ServiceCookie;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.kickmyb.transfer.SigninRequest;
 import org.kickmyb.transfer.SigninResponse;
@@ -74,11 +75,14 @@ public class ConnexionActivity extends AppCompatActivity {
                                 Log.i("RETROFIT", "le corps " + corpsErreur);
                                 if (corpsErreur.contains("BadCredentialsException")) {
                                     // TODO remplacer par un objet TropCourtgraphique mieux qu'un toast
-                                    Toast.makeText(ConnexionActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ConnexionActivity.this, R.string.badcredentials, Toast.LENGTH_SHORT).show();
                                 }
                                 else if (corpsErreur.contains("InternalAuthenticationServiceException")){
-                                    Toast.makeText(ConnexionActivity.this, "Ce message est trop court", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ConnexionActivity.this, R.string.serviceException, Toast.LENGTH_SHORT).show();
 
+                                }else
+                                {
+                                    unexpected();
                                 }
 
                             } catch (IOException e) {
@@ -90,11 +94,30 @@ public class ConnexionActivity extends AppCompatActivity {
                     public void onFailure(Call<SigninResponse> call, Throwable t) {
                         Log.i("RETROFIT", t.getMessage());
                         progressD.dismiss();
-
-                        Toast.makeText(ConnexionActivity.this, "Connexion échoué" , Toast.LENGTH_LONG).show();
+                        retry();
+                        Toast.makeText(ConnexionActivity.this, R.string.no_network , Toast.LENGTH_LONG).show();
                     }
                 });
+
+
             }
         });
+    }
+    private void retry() {
+        Snackbar snacky = Snackbar.make(binding.nestedscrollview,
+                R.string.no_network, Snackbar.LENGTH_LONG);
+        snacky.setAction(R.string.retry, view1 -> {
+            Toast.makeText(this, "Retrying", Toast.LENGTH_SHORT).show();
+        });
+        snacky.show();
+    }
+
+    private void unexpected() {
+        Snackbar snacky = Snackbar.make(binding.coordo,
+                R.string.unexpected, Snackbar.LENGTH_LONG);
+        snacky.setAction(R.string.retry, view1 -> {
+            Toast.makeText(this, "Retrying", Toast.LENGTH_SHORT).show();
+        });
+        snacky.show();
     }
 }

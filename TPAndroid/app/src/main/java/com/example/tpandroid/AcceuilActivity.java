@@ -21,11 +21,13 @@ import android.widget.Toast;
 
 import com.example.tpandroid.http.RetrofitCookie;
 import com.example.tpandroid.http.ServiceCookie;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
 import com.example.tpandroid.databinding.ActivityAcceuilBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.kickmyb.transfer.HomeItemResponse;
 
@@ -83,7 +85,7 @@ public class AcceuilActivity extends AppCompatActivity {
                     List<HomeItemResponse> maListeDuServeur = response.body();
                     remplacer(maListeDuServeur);
                 }else {
-
+                    unexpected();
                 }
 
 
@@ -92,7 +94,7 @@ public class AcceuilActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<HomeItemResponse>> call, Throwable t) {
                 progressD.dismiss();
-
+                retry();
             }
         });
     }
@@ -148,6 +150,7 @@ public class AcceuilActivity extends AppCompatActivity {
                             public void onFailure(Call<String> call, Throwable t) {
                                 progressD.dismiss();
                                 Log.i("RETROFIT", t.getMessage());
+                                retry();
                                 Toast.makeText(AcceuilActivity.this, "Déconnexion échoué" , Toast.LENGTH_LONG).show();
                             }
                         });
@@ -215,6 +218,24 @@ public class AcceuilActivity extends AppCompatActivity {
         barToggle.onConfigurationChanged(newConfig);
         super.onConfigurationChanged(newConfig);
     }
+
+    private void retry() {
+        Snackbar snacky = Snackbar.make(binding.drawerLayout,
+               R.string.no_network, Snackbar.LENGTH_LONG);
+        snacky.setAction(R.string.retry, view1 -> {
+            loadingInitialListe();        });
+        snacky.show();
+    }
+
+    private void unexpected() {
+        Snackbar snacky = Snackbar.make(binding.drawerLayout,
+                R.string.unexpected, Snackbar.LENGTH_LONG);
+        snacky.setAction(R.string.retry, view1 -> {
+            loadingInitialListe();        });
+        snacky.show();
+    }
+
+
 
 
 
