@@ -78,8 +78,14 @@ public class AcceuilActivity extends AppCompatActivity {
             public void onResponse(Call<List<HomeItemResponse>> call, Response<List<HomeItemResponse>> response) {
                 // j'ai recu la liste, l faut que je l'affiche dans mon recycler
                 progressD.dismiss();
-                List<HomeItemResponse> maListeDuServeur = response.body();
-                remplacer(maListeDuServeur);
+                if(response.isSuccessful())
+                {
+                    List<HomeItemResponse> maListeDuServeur = response.body();
+                    remplacer(maListeDuServeur);
+                }else {
+
+                }
+
 
             }
 
